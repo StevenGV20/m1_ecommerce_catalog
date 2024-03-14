@@ -14,8 +14,8 @@ import {
 } from '@nestjs/common';
 
 import { Response } from 'express';
-import { CategoriesService } from './../services/categories.service';
-import { CreateCategoryDto } from 'src/dto/categories.dto';
+import { CategoriesService } from '../services/categories.service';
+import { CreateCategoryDto } from 'src/products/dto/categories.dto';
 
 @Controller('categories')
 export class CategoriesController {
