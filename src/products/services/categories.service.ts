@@ -13,11 +13,11 @@ export class CategoriesService {
   }
 
   findOne(id:number){
-    const product = null;
-    if(!product){
-      throw new NotFoundException(`Product #${id} not found`);
+    const category = null;
+    if(!category){
+      throw new NotFoundException(`category #${id} not found`);
     }
-    return product;
+    return category;
   }
 
   create(payload:UpdateCategoryDto){
@@ -26,7 +26,7 @@ export class CategoriesService {
 
   update(id:number,payload:CreateCategoryDto){
     const category = this.findOne(id);
-    if(product){
+    if(category){
 
     }
   }
