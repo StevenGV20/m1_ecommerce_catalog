@@ -1,37 +1,44 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCategoryDto,UpdateCategoryDto } from 'src/products/dto/categories.dto';
+import { ConfigService } from '@nestjs/config';
+import {
+  CreateCategoryDto,
+  UpdateCategoryDto,
+} from 'src/products/dto/categories.dto';
 
 @Injectable()
 export class CategoriesService {
-  private categories = [{
-    id:1,
-    name:"category 1"
-  }];
+  constructor(
+    private categoriesService: CategoriesService,
+    private configService: ConfigService,
+  ) {}
+  private categories = [
+    {
+      id: 1,
+      name: 'category 1',
+    },
+  ];
 
-  findAll(){
-    return [];
+  findAll() {
+    const apiKey = this.configService.get('API_KEY');
+    const dbName = this.configService.get('DATABASE_NAME');
+    return this.categories;
   }
 
-  findOne(id:number){
+  findOne(id: number) {
     const category = null;
-    if(!category){
+    if (!category) {
       throw new NotFoundException(`category #${id} not found`);
     }
     return category;
   }
 
-  create(payload:UpdateCategoryDto){
+  create(payload: UpdateCategoryDto) {}
 
-  }
-
-  update(id:number,payload:CreateCategoryDto){
+  update(id: number, payload: CreateCategoryDto) {
     const category = this.findOne(id);
-    if(category){
-
+    if (category) {
     }
   }
 
-  delete(id:number){
-
-  }
+  delete(id: number) {}
 }
