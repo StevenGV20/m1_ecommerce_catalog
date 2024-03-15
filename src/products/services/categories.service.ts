@@ -8,7 +8,6 @@ import {
 @Injectable()
 export class CategoriesService {
   constructor(
-    private categoriesService: CategoriesService,
     private configService: ConfigService,
   ) {}
   private categories = [

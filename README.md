@@ -40,6 +40,7 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
+$ $env:NODE_ENV = 'dev'; npm run start:dev
 
 # production mode
 $ npm run start:prod
