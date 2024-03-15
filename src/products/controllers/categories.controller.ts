@@ -25,8 +25,8 @@ export class CategoriesController {
 
   @Get(':id')
   @HttpCode(HttpStatus.ACCEPTED)
-  getCategory(@Res() response:Response, @Param('id', ParseIntPipe) id: number) {
-    this.categoriesService.findOne(id);
+  getCategory(@Param('id') id: string) {
+    return this.categoriesService.findOne(id);
   }
 
   @Get()
@@ -38,16 +38,16 @@ export class CategoriesController {
 
   @Post()
   createCategory(@Body() payload: CreateCategoryDto) {
-    this.categoriesService.create(payload);
+    return this.categoriesService.create(payload);
   }
 
   @Put(':id')
-  updateCategory(@Param('id', ParseIntPipe) id: number, @Body() payload: CreateCategoryDto) {
-    this.categoriesService.update(id,payload);
+  updateCategory(@Param('id') id: string, @Body() payload: CreateCategoryDto) {
+    return this.categoriesService.update(id,payload);
   }
 
   @Delete(':id')
-  deleteCategory(@Param('id', ParseIntPipe) id: number) {
-    this.categoriesService.delete(id);
+  deleteCategory(@Param('id') id: string) {
+    return this.categoriesService.delete(id);
   }
 }

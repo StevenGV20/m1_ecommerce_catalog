@@ -4,7 +4,7 @@ import { ApiProperty, PartialType } from '@nestjs/swagger';
 export class CreateCategoryDto{
   @IsString()
   @ApiProperty({description: "Nombre de la categoria"})
-  readonly productName: string;
+  readonly categoryName: string;
 }
 
 export class UpdateCategoryDto extends PartialType(CreateCategoryDto){}
