@@ -16,7 +16,9 @@ import {
 import { Response } from 'express';
 import { CategoriesService } from '../services/categories.service';
 import { CreateCategoryDto } from 'src/products/dto/categories.dto';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('categories')
 @Controller('categories')
 export class CategoriesController {
   constructor(private categoriesService:CategoriesService){}
@@ -28,6 +30,7 @@ export class CategoriesController {
   }
 
   @Get()
+  @ApiOperation({summary:'Lista de productos'})
   getCategoriesPag(@Query() params: any) {
     const { limit, offset } = params;
     this.categoriesService.findAll();

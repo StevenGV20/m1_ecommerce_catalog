@@ -31,9 +31,9 @@ export class CategoriesService {
     return category;
   }
 
-  create(payload: UpdateCategoryDto) {}
+  create(payload: CreateCategoryDto) {}
 
-  update(id: number, payload: CreateCategoryDto) {
+  update(id: number, payload: UpdateCategoryDto) {
     const category = this.findOne(id);
     if (category) {
     }
