@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   CreateCategoryDto,
@@ -8,19 +8,15 @@ import {
 @Injectable()
 export class CategoriesService {
   constructor(
+    @Inject('MONGO') private database:any,
     private configService: ConfigService,
   ) {}
-  private categories = [
-    {
-      id: 1,
-      name: 'category 1',
-    },
-  ];
 
-  findAll() {
-    const apiKey = this.configService.get('API_KEY');
-    const dbName = this.configService.get('DATABASE_NAME');
-    return this.categories;
+  async findAll() {
+    const categoriesCollection = this.database.collection('categories');
+    const categories = await categoriesCollection.find().toArray();
+    console.log(categories);
+    return categories;
   }
 
   findOne(id: number) {

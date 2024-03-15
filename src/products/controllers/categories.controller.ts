@@ -33,7 +33,7 @@ export class CategoriesController {
   @ApiOperation({summary:'Lista de productos'})
   getCategoriesPag(@Query() params: any) {
     const { limit, offset } = params;
-    this.categoriesService.findAll();
+    return this.categoriesService.findAll();
   }
 
   @Post()
