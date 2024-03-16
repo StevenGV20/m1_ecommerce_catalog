@@ -16,6 +16,7 @@ import { Response } from 'express';
 import { ProductsService } from '../services/products.service';
 import { CreateProductDto } from '../dto/products.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { MongoIdPipe } from 'src/common/mongo-id/mongo-id.pipe';
 
 @ApiTags('products')
 @Controller('products')
@@ -24,18 +25,18 @@ export class ProductsController {
 
   @Get(':id')
   @HttpCode(HttpStatus.ACCEPTED)
-  getOneProduct(@Res() response:Response, @Param('id', ParseIntPipe) id: string) {
-    this.productsService.findOne(id);
+  getOneProduct(@Param('id', MongoIdPipe) id: string) {
+    return this.productsService.findOne(id);
   }
 
   @Get()
   getProducts(@Query() params: any) {
     const { limit, offset } = params;
-    this.productsService.findAll();
+    return this.productsService.findAll();
   }
 
   @Post()
   createCategory(@Body() payload: CreateProductDto) {
-    this.productsService.create(payload);
+    return this.productsService.create(payload);
   }
 }
