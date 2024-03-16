@@ -9,19 +9,20 @@ import {
   Query,
   HttpStatus,
   HttpCode,
-  Res,
-  ParseIntPipe
 } from '@nestjs/common';
-import { Response } from 'express';
 import { ProductsService } from '../services/products.service';
-import { CreateProductDto, FilterProductsDto } from '../dto/products.dto';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  CreateProductDto,
+  FilterProductsDto,
+  UpdateProductDto,
+} from '../dto/products.dto';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { MongoIdPipe } from 'src/common/mongo-id/mongo-id.pipe';
 
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
-  constructor(private productsService:ProductsService){}
+  constructor(private productsService: ProductsService) {}
 
   @Get(':id')
   @HttpCode(HttpStatus.ACCEPTED)
@@ -30,12 +31,26 @@ export class ProductsController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Lista de productos' })
   getProducts(@Query() params: FilterProductsDto) {
     return this.productsService.findAll(params);
   }
 
   @Post()
-  createCategory(@Body() payload: CreateProductDto) {
+  createProduct(@Body() payload: CreateProductDto) {
     return this.productsService.create(payload);
+  }
+
+  @Put(':id')
+  updateProduct(
+    @Param('id', MongoIdPipe) id: string,
+    @Body() payload: UpdateProductDto,
+  ) {
+    return this.productsService.update(id, payload);
+  }
+
+  @Delete(':id')
+  deleteProduct(@Param('id', MongoIdPipe) id: string) {
+    return this.productsService.delete(id);
   }
 }

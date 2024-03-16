@@ -1,6 +1,5 @@
-import { IsString,IsNumber,IsNotEmpty,IsUrl, IsPositive, IsOptional, Min, ValidateIf, ValidateNested } from 'class-validator';
+import { IsString,IsNumber,IsNotEmpty,IsUrl, IsPositive, IsOptional, Min, ValidateIf, ValidateNested, IsMongoId, IsArray } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
-
 export class CreateProductDto{
   @IsString()
   @IsNotEmpty({message:"El campo productName no puede ser vacio"})
@@ -30,9 +29,13 @@ export class CreateProductDto{
   readonly image: string;
 
   @IsNotEmpty({message:"Debes elegir una categoria"})
-  @ValidateNested()
   @ApiProperty({description: "Categoria del producto"})
+  @IsMongoId()
   readonly category: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  readonly quickFilter: any;
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto){}
@@ -54,5 +57,9 @@ export class FilterProductsDto{
   @ValidateIf((params) => params.minPrice)
   @IsPositive()
   maxPrice: number;
+
+  @IsOptional()
+  @IsMongoId()
+  category: string;
 }
 

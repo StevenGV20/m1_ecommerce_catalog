@@ -1,10 +1,11 @@
 import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
-import { extend } from 'joi';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
+
+import { Category } from './category.entity';
 
 @Schema()
 export class Product extends Document {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   productName: string;
 
   @Prop({ required: true })
@@ -19,13 +20,13 @@ export class Product extends Document {
   @Prop({ required: true })
   image: string;
 
-  @Prop(
-    raw({
-      name: { type: String },
-      image: { type: String },
-    }),
-  )
-  category: Record<string, any>;
+  @Prop({ type: Types.ObjectId, ref: Category.name })
+  category: Category | Types.ObjectId;
+
+  @Prop({
+    type: [{ name: { type: String } }],
+  })
+  quickFilter: Types.Array<Record<string, any>>;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
