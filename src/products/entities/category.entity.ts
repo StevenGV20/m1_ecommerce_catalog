@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 @Schema()
 export class Category extends Document{
-  @Prop({type: String})
+  @Prop({type: String,unique:true})
   categoryName: string;
 }
 

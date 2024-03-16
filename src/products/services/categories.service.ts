@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 
 import {
   CreateCategoryDto,
+  FilterCategoriesDto,
   UpdateCategoryDto,
 } from 'src/products/dto/categories.dto';
 import { Category } from '../entities/category.entity';
@@ -15,7 +16,11 @@ export class CategoriesService {
     @InjectModel(Category.name) private categoryModel: Model<Category>,
   ) {}
 
-  findAll() {
+  findAll(params: FilterCategoriesDto) {
+    if(params){
+      const { limit, offset } = params;
+      return this.categoryModel.find().skip(offset).limit(limit).exec();
+    }
     return this.categoryModel.find().exec();
   }
 

@@ -16,7 +16,7 @@ import {
 import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 import { Response } from 'express';
 import { CategoriesService } from '../services/categories.service';
-import { CreateCategoryDto } from 'src/products/dto/categories.dto';
+import { CreateCategoryDto,UpdateCategoryDto,FilterCategoriesDto } from 'src/products/dto/categories.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('categories')
@@ -32,9 +32,8 @@ export class CategoriesController {
 
   @Get()
   @ApiOperation({summary:'Lista de productos'})
-  getCategoriesPag(@Query() params: any) {
-    const { limit, offset } = params;
-    return this.categoriesService.findAll();
+  getCategoriesPag(@Query() params: FilterCategoriesDto) {
+    return this.categoriesService.findAll(params);
   }
 
   @Post()
@@ -43,7 +42,7 @@ export class CategoriesController {
   }
 
   @Put(':id')
-  updateCategory(@Param('id',MongoIdPipe) id: string, @Body() payload: CreateCategoryDto) {
+  updateCategory(@Param('id',MongoIdPipe) id: string, @Body() payload: UpdateCategoryDto) {
     return this.categoriesService.update(id,payload);
   }
 
