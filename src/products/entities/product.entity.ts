@@ -1,24 +1,32 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import { extend } from 'joi';
 import { Document } from 'mongoose';
 
 @Schema()
-export class Product extends Document{
-  @Prop({required: true})
+export class Product extends Document {
+  @Prop({ required: true })
   productName: string;
 
-  @Prop({required: true})
+  @Prop({ required: true })
   productDescription: string;
 
-  @Prop({type: Number,required:true,index: true})
+  @Prop({ type: Number, required: true, index: true })
   price: number;
 
-  @Prop({type: Number,required:true})
+  @Prop({ type: Number, required: true })
   stock: number;
 
-  @Prop({required:true})
+  @Prop({ required: true })
   image: string;
+
+  @Prop(
+    raw({
+      name: { type: String },
+      image: { type: String },
+    }),
+  )
+  category: Record<string, any>;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
-ProductSchema.index({price:1, stock: -1});
+ProductSchema.index({ price: 1, stock: -1 });
