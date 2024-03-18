@@ -8,7 +8,6 @@ import {
   UpdateProductDto,
 } from '../dto/products.dto';
 import { Product } from '../entities/product.entity';
-import { MongoIdPipe } from 'src/common/mongo-id/mongo-id.pipe';
 
 @Injectable()
 export class ProductsService {
@@ -39,7 +38,7 @@ export class ProductsService {
   }
 
   async findOne(id: string) {
-    const product = await this.productModel.findById(id).exec();
+    const product = await this.productModel.findById(id).populate('category').exec();
     if (!product) {
       throw new NotFoundException(`product #${id} not found`);
     }

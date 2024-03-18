@@ -33,8 +33,9 @@ export class CreateProductDto{
   @IsMongoId()
   readonly category: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({message: "Agregar palabras clave para filtrar el producto rapidamente."})
   @IsArray()
+  @ApiProperty({description: "Agregar palabras clave para filtrar el producto rapidamente."})
   readonly quickFilter: any;
 }
 
