@@ -59,6 +59,14 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## DOCKER
+There is a docker image if you want to run this project.
+
+```bash
+# run this in you terminal
+docker run -p 3100:3000 stevengv22/m1_ecommerce_catalog:1.0.0
+```
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).

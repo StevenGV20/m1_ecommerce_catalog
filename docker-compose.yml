@@ -1,32 +1,21 @@
 version: "3.3"
 
 services:
-  mongodb:
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root2024
-    ports:
-      - 27017:27017
-    volumes:
-      - ./mongo_data:/data/db
-
   m1_ecommerce_catalog:
     image: m1_ecommerce_catalog:1.0.0
     container_name: m1_ecommerce_catalog
     build: .
     environment:
-      - API_KEY=123
+      - DATABASE_NAME=ms1_ecommerce_catalog_db
+      - DATABASE_PORT=1000
+      - API_KEY=2222333
       - PORT=3000
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root2024
+      - MONGO_INITDB_ROOT_USERNAME=user-svg-app
+      - MONGO_INITDB_ROOT_PASSWORD=N9RXyXYwlaR6c1Ag
       - MONGO_DB=ms1_ecommerce_catalog_db
-      - MONGO_PORT=27017
-      - MONGO_HOST=localhost
-      - MONGO_CONNECTION=mongodb
+      - MONGO_PORT=
+      - MONGO_HOST=mongodb2024101.ttw1eu8.mongodb.net
+      - MONGO_CONNECTION=mongodb+srv
     ports:
       - 3000:3000
-    depends_on:
-      - mongodb
 
